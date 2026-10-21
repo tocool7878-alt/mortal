@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凡人修仙傳 - 三界萬象編年史</title>
+    <!-- 引入 Supabase 官方 SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 引入自訂 CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo">凡人修仙傳 <span>三界編年史</span></div>
+    </header>
+
+    <div class="app-container">
+        <!-- 左側目錄區塊 -->
+        <aside class="sidebar" id="sidebar">
+            <div id="loading-menu" class="loading">加載三界神卷中...</div>
+            <div id="menu-container"></div>
+        </aside>
+
+        <!-- 右側內容區塊 -->
+        <main class="main-content" id="main-content">
+            <div id="welcome-screen" class="welcome-screen">
+                <h2>歡迎進入三界</h2>
+                <p>請從左側目錄選擇境界與戰役篇章，查閱詳細紀事。</p>
+            </div>
+            
+            <div id="event-details" class="event-details hidden">
+                <header class="event-header">
+                    <h1 id="event-title"></h1>
+                    <p id="event-subtitle" class="subtitle"></p>
+                    <div class="location-badge" id="event-location"></div>
+                </header>
+
+                <section class="event-body">
+                    <h3>劇情概要</h3>
+                    <p id="event-description"></p>
+                    
+                    <h3>戰術與神通運用</h3>
+                    <p id="event-tactics"></p>
+                </section>
+
+                <section class="entities-section">
+                    <h3>登場萬象</h3>
+                    <div id="entities-container" class="entities-grid">
+                        <!-- 動態插入實體卡片 (敵人、寶物等) -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 引入主程式 (使用 type="module" 啟用模組化) -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
