@@ -4,28 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>凡人修仙傳 - 三界萬象編年史</title>
-    <!-- 引入 Supabase 官方 SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- 引入自訂 CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="top-nav">
         <div class="logo">凡人修仙傳 <span>三界編年史</span></div>
+        <div class="nav-tabs">
+            <button id="tab-chronicle" class="tab-btn active">萬象編年史 (樹狀目錄)</button>
+            <button id="tab-map" class="tab-btn">三界互動地圖</button>
+        </div>
+        <div class="nav-actions">
+            <button id="btn-export" class="action-btn">匯出我的道卷</button>
+        </div>
     </header>
 
     <div class="app-container">
-        <!-- 左側目錄區塊 -->
+        <!-- 左側：目錄模式 -->
         <aside class="sidebar" id="sidebar">
             <div id="loading-menu" class="loading">加載三界神卷中...</div>
             <div id="menu-container"></div>
         </aside>
 
-        <!-- 右側內容區塊 -->
+        <!-- 左側：地圖模式 (預設隱藏) -->
+        <aside class="map-container hidden" id="map-container">
+            <svg viewBox="0 0 800 1000" class="interactive-map">
+                <!-- 地圖背景底圖 -->
+                <rect width="800" height="1000" fill="#0f1115" />
+                <path d="M100,200 Q400,50 700,200 T700,800 Q400,950 100,800 Z" fill="#1a1d24" stroke="#2c313c" stroke-width="2"/>
+                
+                <!-- 互動地圖節點：天南 -->
+                <g class="map-node" data-location="天南">
+                    <circle cx="250" cy="350" r="15" fill="var(--accent-jade)" />
+                    <text x="250" y="390" fill="#fff" text-anchor="middle">天南大陸</text>
+                    <text x="250" y="410" fill="var(--text-muted)" font-size="12" text-anchor="middle">七玄門 / 黃楓谷 / 慕蘭</text>
+                </g>
+                
+                <!-- 互動地圖節點：亂星海 -->
+                <g class="map-node" data-location="亂星海">
+                    <circle cx="550" cy="550" r="15" fill="var(--accent-blue)" />
+                    <text x="550" y="590" fill="#fff" text-anchor="middle">亂星海</text>
+                    <text x="550" y="610" fill="var(--text-muted)" font-size="12" text-anchor="middle">天星城 / 虛天殿 / 外星海</text>
+                </g>
+
+                <!-- 互動地圖節點：大晉 -->
+                <g class="map-node" data-location="大晉">
+                    <circle cx="200" cy="700" r="15" fill="var(--accent-gold)" />
+                    <text x="200" y="740" fill="#fff" text-anchor="middle">大晉</text>
+                    <text x="200" y="760" fill="var(--text-muted)" font-size="12" text-anchor="middle">昆吾山 / 陰陽窟</text>
+                </g>
+            </svg>
+        </aside>
+
+        <!-- 右側：內容區塊 -->
         <main class="main-content" id="main-content">
             <div id="welcome-screen" class="welcome-screen">
                 <h2>歡迎進入三界</h2>
-                <p>請從左側目錄選擇境界與戰役篇章，查閱詳細紀事。</p>
+                <p>請從左側選擇境界，或切換至「地圖模式」點選修煉疆域。</p>
             </div>
             
             <div id="event-details" class="event-details hidden">
@@ -34,26 +69,17 @@
                     <p id="event-subtitle" class="subtitle"></p>
                     <div class="location-badge" id="event-location"></div>
                 </header>
-
                 <section class="event-body">
-                    <h3>劇情概要</h3>
-                    <p id="event-description"></p>
-                    
-                    <h3>戰術與神通運用</h3>
-                    <p id="event-tactics"></p>
+                    <h3>劇情概要</h3><p id="event-description"></p>
+                    <h3>戰術與神通運用</h3><p id="event-tactics"></p>
                 </section>
-
                 <section class="entities-section">
                     <h3>登場萬象</h3>
-                    <div id="entities-container" class="entities-grid">
-                        <!-- 動態插入實體卡片 (敵人、寶物等) -->
-                    </div>
+                    <div id="entities-container" class="entities-grid"></div>
                 </section>
             </div>
         </main>
     </div>
-
-    <!-- 引入主程式 (使用 type="module" 啟用模組化) -->
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
